@@ -1,0 +1,89 @@
+erDiagram
+
+	User {
+		int id
+		string email
+		string password
+		string created_at
+		string updated_at
+	}
+
+	UserProfile {
+		int id
+		int user_id
+		string avatar
+		string bio
+		string created_at
+		string updated_at
+	 }
+
+	Recipe {
+		int id
+		string title
+		json content
+		int user_id
+		int image_id
+		boolean is_published
+		int servings
+		int cooking_time
+		string created_at
+		string updated_at
+	}
+
+	Tag {
+		int id
+		string name
+	}
+
+	Favourite {
+		int id
+		int user_id
+		int recipe_id
+		string created_at
+		string updated_at
+	}
+
+	Comment {
+		int id
+		string text
+		int recipe_id
+		int user_id
+		string created_at
+		string updated_at
+	}
+
+	Image {
+		int id
+		string pathname
+		int user_id
+	}
+
+	 Category {
+		int id
+		string name
+	}
+
+	User ||--o{ Recipe : "has many"
+	User ||--o{ Comment : "has many"
+	User ||--o{ Image : "has many"
+	User ||--o| UserProfile : "has one"
+	User ||--o{ Favourite : "has many"
+
+	Recipe ||--o| User : "belongs to"
+	Recipe ||--o| Image : "belongs to"
+	Recipe ||--o{ Comment : "has many"
+	Recipe ||--o{ Tag : "belongs to many"
+	Recipe ||--o{ Favourite : "has many"
+	Recipe ||--o{ Category : "belongs to many"
+
+	Favourite ||--o| User : "belongs to"
+	Favourite ||--o| Recipe : "belongs to"
+
+	Comment ||--o| User : "belongs to"
+	Comment ||--o| Recipe : "belongs to"
+
+	Tag ||--o{ Recipe : "belongs to many"
+
+	Category ||--o{ Recipe : "belongs to many"
+
+	Image ||--o| User : "belongs to"
