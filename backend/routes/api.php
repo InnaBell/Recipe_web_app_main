@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
   Route::get('/user/profile', [UserProfileController::class, 'index']);
   Route::post('/user/profile', [UserProfileController::class, 'update']);
+  Route::delete('/user/profile', [UserProfileController::class, 'destroy']);
 
   Route::post('/auth/logout', [AuthController::class, 'logout']);
 

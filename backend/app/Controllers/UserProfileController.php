@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Image;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,5 +51,21 @@ class UserProfileController {
 		$profile->save();
 
 		return response()->json($profile);
+	}
+
+	// Profile Image delete
+	function destroy() {
+		$user = Auth::user();
+		$profile = UserProfile::where('user_id', $user->id)->firstOrFail();
+
+		if ($profile->avatar && Storage::disk('public')->exists($profile->avatar)) {
+			Storage::disk('public')->delete($profile->avatar);
+			$profile->avatar = null;
+			$profile->save();
+
+			return response()->json(['message' => 'Avatar deleted successfully.'], 200);
+		}
+
+		return response()->json(['message' => 'No avatar to delete.'], 404);
 	}
 }
