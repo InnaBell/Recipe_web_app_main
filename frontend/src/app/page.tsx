@@ -26,6 +26,21 @@ export interface RecipeData {
   };
 }
 
+export interface UserData {
+  id: number;
+  email: string;
+  created_at: string;
+  updated_at: string;
+  profile: {
+    id: number;
+    user_id: number;
+    avatar: string;
+    bio: string;
+    created_at: string;
+    updated_at: string;
+  };
+}
+
 export default async function Home() {
   return (
     <div>
