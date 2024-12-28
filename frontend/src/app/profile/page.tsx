@@ -3,6 +3,7 @@ import { dataFetchWithToken } from "@/lib/data-fetch";
 import { getServerSession } from "next-auth";
 import { UserData } from "../page";
 import { Button } from "@/components/ui/button";
+import { LogoutButton } from "@/components/buttons/logout-button";
 
 async function getUserProfile() {
   try {
@@ -82,9 +83,7 @@ export default async function ProfilePage() {
                 <Button type="submit" className="mt-2 w-full">
                   Bearbeiten
                 </Button>
-                <Button type="submit" className="mt-2 w-full">
-                  Abmelden
-                </Button>
+                <LogoutButton />
                 <Button
                   variant="destructive"
                   type="submit"

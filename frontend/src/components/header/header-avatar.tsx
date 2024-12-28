@@ -2,13 +2,6 @@
 
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-} from "../ui/dropdown-menu";
-import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { LogoutButton } from "../buttons/logout-button";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "../ui/skeleton";
 
@@ -47,21 +40,11 @@ export const HeaderAvatar = ({ containerClassName = "" }) => {
           Favoriten
         </Link>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar>
-              <AvatarFallback>AA</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <Link href={"/profile"}>Profile</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LogoutButton />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link href={"/profile"}>
+          <Avatar>
+            <AvatarFallback>AA</AvatarFallback>
+          </Avatar>
+        </Link>
       </div>
     </>
   );
