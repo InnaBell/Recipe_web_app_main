@@ -15,7 +15,7 @@ class Recipe extends Model {
         'user_id',
         'image_id',
 		'servings',
-		'cooking_time',
+		'cooking_time', 
     ];
 
     protected $casts = [
@@ -45,7 +45,7 @@ class Recipe extends Model {
 	}
 
     // Remove 'images' from $with if the relationship is unnecessary
-    protected $with = ['tags', 'coverImage'];
+    protected $with = ['tags', 'coverImage', 'categories'];
 
     static function validate(Request $request) {
         $post = $request->method() === 'POST';

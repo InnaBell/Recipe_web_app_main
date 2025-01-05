@@ -14,7 +14,7 @@ async function getRecipes() {
   return await dataFetch("http://127.0.0.1:8000/api/recipes");
 }
 
-async function getFavoriteCount(recipeId: number): Promise<number> {
+export async function getFavoriteCount(recipeId: number): Promise<number> {
   const response: FavoriteData = await dataFetch(
     `http://127.0.0.1:8000/api/favourites/count/${recipeId}`
   );

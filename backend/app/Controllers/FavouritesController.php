@@ -35,7 +35,7 @@ class FavouritesController {
 	// Get all fav for the user
 	$favourites = Favourite::where('user_id', $user->id)
 		 ->with(['recipe' => function($query) {
-			$query->select('id', 'title', 'content', 'image_id');
+			$query->select('id', 'title', 'content', 'image_id', 'image_id', 'servings', 'cooking_time'); 
 		}])
 		->get();
 

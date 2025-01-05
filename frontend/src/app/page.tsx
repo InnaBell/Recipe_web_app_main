@@ -25,7 +25,7 @@ export interface RecipeData {
   cover_image: {
     id: number;
     title: string;
-    pathname: string;
+    pathname: string | null;
   };
   categories: {
     id: number;
@@ -57,6 +57,36 @@ export interface UserData {
 export interface FavoriteData {
   recipe_id: number;
   favourites_count: number;
+}
+
+export interface FavoritesData {
+  id: number;
+  user_id: number;
+  recipe_id: number;
+  created_at: string;
+  updated_at: string;
+  recipe: {
+    id: number;
+    title: string;
+    content: string;
+    image_id: number | null;
+    servings: number;
+    cooking_time: number;
+    tags: any[];
+    cover_image: {
+      pathname: string;
+    } | null;
+    categories: {
+      id: number;
+      name: string;
+      created_at: string;
+      updated_at: string;
+      pivot: {
+        recipe_id: number;
+        category_id: number;
+      };
+    }[];
+  };
 }
 
 export default async function Home() {

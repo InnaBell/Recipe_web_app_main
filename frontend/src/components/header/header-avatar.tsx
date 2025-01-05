@@ -34,7 +34,7 @@ export const HeaderAvatar = ({ containerClassName = "" }) => {
         </Link>
 
         <Link
-          href={"#"}
+          href={"/favorites"}
           className="inline-flex items-center gap-x-1 text-sm/6 hover:text-primary transition-colors"
         >
           Favoriten
