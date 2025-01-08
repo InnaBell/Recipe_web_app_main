@@ -52,8 +52,8 @@ export default async function FavoritesPage() {
 
   return (
     <>
-      <Container className="flex justify-between mb-6">
-        <h1 className="text-3xl font-bold">Meine Favoriten</h1>
+      <Container className="flex justify-between mb-8">
+        <h2 className="font-extrabold underline">Meine Favoriten</h2>
       </Container>
       {favorites.length === 0 ? (
         <Container className="text-center py-10">

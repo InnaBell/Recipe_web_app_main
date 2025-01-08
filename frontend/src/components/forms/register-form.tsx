@@ -44,7 +44,9 @@ export const RegisterForm = ({ setFormContext }: RegisterFormProps) => {
     const response = await handleSignup(values.email, values.password);
 
     if (response.status === 201) {
-      toast.success("Signup successful, you can login now", { position: "bottom-center" });
+      toast.success("Signup successful, you can login now", {
+        position: "bottom-center",
+      });
       setFormContext(FormContext.LOGIN);
     } else {
       toast.error(response.message, { position: "bottom-center" });
@@ -52,41 +54,65 @@ export const RegisterForm = ({ setFormContext }: RegisterFormProps) => {
   }
 
   return (
-    <div className='flex flex-col w-full'>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col w-full gap-6'>
-          <FormField
-            control={form.control}
-            name='email'
-            render={({ field }) => (
-              <FormInput errors={errors}>
-                <Input placeholder='Email' {...field} />
-              </FormInput>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='password'
-            render={({ field }) => (
-              <FormInput errors={errors}>
-                <Input type='password' placeholder='Password' {...field} />
-              </FormInput>
-            )}
-          />
-          <Button type='submit' size='lg'>
-            Register
-          </Button>
-        </form>
-      </Form>
-      <p className='mt-4 self-end'>
-        Already got an account?
-        <span
-          onClick={() => setFormContext(FormContext.LOGIN)}
-          className='font-semibold ml-2 cursor-pointer'
-        >
-          Login now
-        </span>
-      </p>
-    </div>
+    <section>
+      <div className="grid items-center gap-8 lg:grid-cols-2">
+        <div className="flex flex-col items-center text-center">
+          <h3 className="mb-2 font-semibold lg:text-3xl">Registrieren</h3>
+
+          <p className="mb-8 w-7/12 text-muted-foreground text-sm">
+            Haben Sie ein Konto?
+            <span
+              onClick={() => setFormContext(FormContext.LOGIN)}
+              className="ml-1 cursor-pointer underline"
+            >
+              Melden Sie sich an
+            </span>
+          </p>
+
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col w-10/12 gap-4 sm:w-8/12"
+            >
+              <div className="flex flex-col gap-2 w-full">
+                <small className="self-start font-medium">E-Mail *</small>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormInput errors={errors}>
+                      <Input {...field} />
+                    </FormInput>
+                  )}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2 w-full">
+                <small className="self-start font-medium">Passwort *</small>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormInput errors={errors}>
+                      <Input type="password" {...field} />
+                    </FormInput>
+                  )}
+                />
+              </div>
+
+              <Button type="submit" size="lg">
+                Registrieren
+              </Button>
+            </form>
+          </Form>
+        </div>
+
+        <img
+          src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/session-image.jpg`}
+          alt="Tablet mit Rezepten auf dem Küchentisch"
+          className="hidden lg:block max-h-[500px] w-full object-cover rounded-md"
+        />
+      </div>
+    </section>
   );
 };

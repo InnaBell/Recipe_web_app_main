@@ -4,7 +4,6 @@ import { RecipeData, FavoriteData } from "@/app/page";
 import { Container } from "../container/container";
 import { Badge } from "@/components/ui/badge";
 
-// simulate delay funciton
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

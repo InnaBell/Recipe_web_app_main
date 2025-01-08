@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { UserData } from "../page";
 import { Button } from "@/components/ui/button";
 import { LogoutButton } from "@/components/buttons/logout-button";
+import { Container } from "@/components/container/container";
 
 async function getUserProfile() {
   try {
@@ -54,10 +55,10 @@ export default async function ProfilePage() {
     : "?";
 
   return (
-    <section className="py-7">
-      <div className="container">
+    <section>
+      <Container>
         <div className="flex flex-col gap-4">
-          <div className="mx-auto w-full max-w-sm p-6">
+          <div className="mx-auto w-full max-w-sm px-6">
             <div className="mb-6 flex flex-col items-center">
               {avatarUrl ? (
                 <img
@@ -95,7 +96,7 @@ export default async function ProfilePage() {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

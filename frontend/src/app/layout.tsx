@@ -46,7 +46,7 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         <SessionProviderWrapper session={session}>
           <Header />
-          <div className="flex-grow px-8 py-9">
+          <div className="flex-grow px-8 py-16">
             {children}
             {modal}
           </div>
