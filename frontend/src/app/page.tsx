@@ -20,7 +20,12 @@ export interface RecipeData {
   cooking_time: number;
   created_at: string;
   updated_at: string;
-  tags: string[];
+  tags: {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+  }[];
   coverImageId: string | null;
   cover_image: {
     id: number;

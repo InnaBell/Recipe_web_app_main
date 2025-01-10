@@ -45,14 +45,19 @@ export const Modal = ({
   };
 
   return (
-    <Dialog defaultOpen={openModal} open={openModal} onOpenChange={handleOpenChange}>
+    <Dialog
+      defaultOpen={openModal}
+      open={openModal}
+      onOpenChange={handleOpenChange}
+    >
       <DialogOverlay className={overlayClassName}>
         <DialogContent className={contentClassName}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
-            {description && <DialogDescription>{description}</DialogDescription>}
+            {description && (
+              <DialogDescription>{description}</DialogDescription>
+            )}
           </DialogHeader>
-          {/* here we pass the children inside the modal, because this is the modal body  */}
           {children}
         </DialogContent>
       </DialogOverlay>

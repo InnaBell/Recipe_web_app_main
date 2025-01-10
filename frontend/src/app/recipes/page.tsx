@@ -5,8 +5,8 @@ import { RecipeData } from "../page";
 import Link from "next/link";
 import { Container } from "@/components/container/container";
 import { Badge } from "@/components/ui/badge";
-import { getFavoriteCount } from "@/components/recipe-list/recipe-list";
 import { LinkButton } from "@/components/buttons/link-button";
+import { getFavouritesMap } from "@/utils/favourites-map";
 
 async function getUserRecipes() {
   try {
@@ -46,21 +46,8 @@ async function getUserRecipes() {
 }
 
 export default async function RecipesPage() {
-  const data: RecipeData[] = (await getUserRecipes()) || [];
-
-  const favouritesMap = (
-    await Promise.all(
-      // to get all ids and favourites
-      data.map(async (recipe: RecipeData) => ({
-        id: recipe.id,
-        favourites_count: await getFavoriteCount(recipe.id),
-      }))
-    )
-  ).reduce((acc, item) => {
-    // reduce the array to a single object
-    acc[item.id] = item.favourites_count;
-    return acc;
-  }, {} as Record<number, number>); // types of objects
+  const recipes: RecipeData[] = (await getUserRecipes()) || [];
+  const favouritesMap = await getFavouritesMap(recipes);
 
   return (
     <>
@@ -78,15 +65,15 @@ export default async function RecipesPage() {
         </div>
       </Container>
 
-      {data.length === 0 ? (
+      {recipes.length === 0 ? (
         <Container className="text-center py-10">
           <p className="text-lg text-gray-600">
             Sie haben noch keine Rezepte erstellt.
           </p>
         </Container>
       ) : (
-        <Container className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data.map((recipe) => (
+        <Container className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {recipes.map((recipe) => (
             <Link
               key={recipe.id}
               href={`/recipe/${recipe.id}`}

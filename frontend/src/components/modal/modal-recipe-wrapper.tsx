@@ -18,10 +18,9 @@ export const ModalRecipeWrapper = ({
 
   return (
     <Modal
-      title={data.title}
       openModal={openModal}
       setOpenModal={setOpenModal}
-      contentClassName="w-4/5 max-w-3xl max-h-[600px] sm:max-h-[800px] overflow-y-auto"
+      contentClassName="max-w-6xl max-h-[90vh] overflow-y-auto"
     >
       <RecipeDetail data={data} userId={userId} setOpenModal={setOpenModal} />
     </Modal>

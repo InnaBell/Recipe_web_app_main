@@ -1,11 +1,11 @@
 import { authConfig } from "@/auth";
 import { dataFetchWithToken } from "@/lib/data-fetch";
 import { getServerSession } from "next-auth";
-import { FavoritesData } from "../page";
 import Link from "next/link";
 import { Container } from "@/components/container/container";
 import { Badge } from "@/components/ui/badge";
-import { getFavoriteCount } from "@/components/recipe-list/recipe-list";
+import { getFavouritesMap } from "@/utils/favourites-map";
+import { FavoritesData } from "../page";
 
 async function getUserFavorites() {
   try {
@@ -38,17 +38,9 @@ async function getUserFavorites() {
 export default async function FavoritesPage() {
   const favorites: FavoritesData[] = (await getUserFavorites()) || [];
 
-  const favouritesMap = (
-    await Promise.all(
-      favorites.map(async (favorite) => ({
-        id: favorite.recipe.id,
-        favourites_count: await getFavoriteCount(favorite.recipe.id),
-      }))
-    )
-  ).reduce((acc, item) => {
-    acc[item.id] = item.favourites_count;
-    return acc;
-  }, {} as Record<number, number>);
+  const favouritesMap = await getFavouritesMap(
+    favorites.map((favorite) => ({ id: favorite.recipe.id }))
+  );
 
   return (
     <>
@@ -62,8 +54,8 @@ export default async function FavoritesPage() {
           </p>
         </Container>
       ) : (
-        <Container className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {favorites.map((favorite: FavoritesData) => (
+        <Container className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {favorites.map((favorite) => (
             <Link
               key={favorite.recipe.id}
               href={`/recipe/${favorite.recipe.id}`}

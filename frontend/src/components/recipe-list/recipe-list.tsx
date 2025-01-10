@@ -3,6 +3,7 @@ import Link from "next/link";
 import { RecipeData, FavoriteData } from "@/app/page";
 import { Container } from "../container/container";
 import { Badge } from "@/components/ui/badge";
+import { getFavouritesMap } from "@/utils/favourites-map";
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -13,34 +14,13 @@ async function getRecipes() {
   return await dataFetch("http://127.0.0.1:8000/api/recipes");
 }
 
-export async function getFavoriteCount(recipeId: number): Promise<number> {
-  const response: FavoriteData = await dataFetch(
-    `http://127.0.0.1:8000/api/favourites/count/${recipeId}`
-  );
-  return response.favourites_count;
-}
-
 export default async function RecipeList() {
   const recipes = await getRecipes();
-
-  // Map recipe IDs to favourite counts
-  const favouritesMap = (
-    await Promise.all(
-      // to get all ids and favourites
-      recipes.map(async (recipe: RecipeData) => ({
-        id: recipe.id,
-        favourites_count: await getFavoriteCount(recipe.id),
-      }))
-    )
-  ).reduce((acc, item) => {
-    // reduce the array to a single object
-    acc[item.id] = item.favourites_count;
-    return acc;
-  }, {} as Record<number, number>); // types of objects
+  const favouritesMap = await getFavouritesMap(recipes);
 
   return (
     <>
-      <Container className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Container className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {recipes.map((recipe: RecipeData) => (
           <Link
             key={recipe.id}

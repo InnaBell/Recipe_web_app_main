@@ -75,7 +75,7 @@ export const EditRecipe = ({ data }: EditRecipeProps) => {
 
   return (
     <div>
-      <h1 className="font-bold text-3xl">Let your imagination run wild</h1>
+      <h1 className="font-bold text-3xl">Rezept bearbeiten</h1>
       {/* Input for the recipe title */}
       <Input
         placeholder="Recipe title"
