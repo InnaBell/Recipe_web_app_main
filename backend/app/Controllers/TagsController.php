@@ -40,4 +40,10 @@ class TagsController {
     $recipe->save();
     return response()->json($recipe->fresh('tags'), 200);
   }
+
+   function recipesByTag($tagId) {
+	$tag = Tag::findOrFail($tagId);
+	$recipes = $tag->recipes;
+	return response()->json($recipes, 200);
+}
 }

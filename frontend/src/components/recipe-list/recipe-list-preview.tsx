@@ -18,7 +18,6 @@ export const RecipeListPreview = ({
 }: RecipeListPreviewProps) => {
   const [recipeList, setRecipeList] = useState<RecipeData[]>(recipes);
   const [searchTerm, setSearchTerm] = useState<string>("");
-
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
 
   const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
@@ -39,6 +38,23 @@ export const RecipeListPreview = ({
 
     fetchTags();
   }, []);
+
+  const handleTagClick = async (tagId: number) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/tags/${tagId}/recipes`
+      );
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch recipes for tag ${tagId}: ${response.status}`
+        );
+      }
+      const data = await response.json();
+      setRecipeList(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // debouncing
   useEffect(() => {
@@ -84,13 +100,16 @@ export const RecipeListPreview = ({
 
         <div className="flex flex-wrap gap-2 mb-16 self-start cursor-pointer">
           {tags.map((tag) => (
-            <Badge key={tag.id} variant={"destructive"}>
+            <Badge
+              key={tag.id}
+              variant={"destructive"}
+              onClick={() => handleTagClick(tag.id)}
+            >
               # {tag.name}
             </Badge>
           ))}
         </div>
       </Container>
-
       <Container className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {recipeList.map((recipe: RecipeData) => (
           <Link
