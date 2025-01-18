@@ -87,12 +87,12 @@ export default async function RecipesPage() {
                       : `${process.env.BACKEND_URL}/uploads/default-recipe-image.jpeg`
                   }
                   alt={recipe.title}
-                  className="aspect-[16/12] size-full object-cover object-center rounded-md"
+                  className="aspect-[12/13] size-full object-cover object-center rounded-md"
                 />
               </div>
 
-              <div className="flex flex-col justify-between px-6 py-8 h-full">
-                <Badge className="mb-6 self-start">
+              <div className="flex flex-col justify-between px-6 py-6 h-full">
+                <Badge className="mb-4 self-start">
                   {recipe.categories.length > 0
                     ? recipe.categories[0]?.name
                     : "New In"}
@@ -105,13 +105,13 @@ export default async function RecipesPage() {
                     <div className="flex items-center gap-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="27"
-                        height="27"
-                        viewBox="0 0 27 27"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                         fill="none"
                       >
                         <path
-                          d="M13.3333 0C20.6973 0 26.6667 5.96933 26.6667 13.3333C26.6667 20.6973 20.6973 26.6667 13.3333 26.6667C5.96933 26.6667 0 20.6973 0 13.3333C0 5.96933 5.96933 0 13.3333 0ZM13.3333 5.33333C12.9797 5.33333 12.6406 5.47381 12.3905 5.72386C12.1405 5.97391 12 6.31304 12 6.66667V13.3333C12.0001 13.6869 12.1406 14.026 12.3907 14.276L16.3907 18.276C16.6421 18.5189 16.9789 18.6533 17.3285 18.6502C17.6781 18.6472 18.0125 18.507 18.2598 18.2598C18.507 18.0125 18.6472 17.6781 18.6502 17.3285C18.6533 16.9789 18.5189 16.6421 18.276 16.3907L14.6667 12.7813V6.66667C14.6667 6.31304 14.5262 5.97391 14.2761 5.72386C14.0261 5.47381 13.687 5.33333 13.3333 5.33333Z"
+                          d="M12 0C18.6276 0 24 5.3724 24 12C24 18.6276 18.6276 24 12 24C5.3724 24 0 18.6276 0 12C0 5.3724 5.3724 0 12 0ZM12 4.8C11.6817 4.8 11.3765 4.92643 11.1515 5.15147C10.9264 5.37652 10.8 5.68174 10.8 6V12C10.8001 12.3182 10.9265 12.6234 11.1516 12.8484L14.7516 16.4484C14.9779 16.667 15.281 16.7879 15.5957 16.7852C15.9103 16.7825 16.2113 16.6563 16.4338 16.4338C16.6563 16.2113 16.7825 15.9103 16.7852 15.5957C16.7879 15.281 16.667 14.9779 16.4484 14.7516L13.2 11.5032V6C13.2 5.68174 13.0736 5.37652 12.8485 5.15147C12.6235 4.92643 12.3183 4.8 12 4.8Z"
                           fill="#8ABD56"
                         />
                       </svg>
@@ -119,17 +119,17 @@ export default async function RecipesPage() {
                     </div>
                   )}
 
-                  <div className="flex items-center gap-1 ml-auto">
+                  <div className="flex items-center gap-2 ml-auto">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
+                      width="24"
+                      height="22"
+                      viewBox="0 0 24 22"
                       fill="none"
                     >
                       <path
-                        d="M16 28.4667L14.0667 26.7067C7.20002 20.48 2.66669 16.36 2.66669 11.3333C2.66669 7.21333 5.89335 4 10 4C12.32 4 14.5467 5.08 16 6.77333C17.4534 5.08 19.68 4 22 4C26.1067 4 29.3334 7.21333 29.3334 11.3333C29.3334 16.36 24.8 20.48 17.9334 26.7067L16 28.4667Z"
-                        fill="#E4E4E7"
+                        d="M12 21.9083L10.3083 20.3683C4.30001 14.92 0.333344 11.315 0.333344 6.91667C0.333344 3.31167 3.15668 0.5 6.75001 0.5C8.78001 0.5 10.7283 1.445 12 2.92667C13.2717 1.445 15.22 0.5 17.25 0.5C20.8433 0.5 23.6667 3.31167 23.6667 6.91667C23.6667 11.315 19.7 14.92 13.6917 20.3683L12 21.9083Z"
+                        fill="#EF4444"
                       />
                     </svg>
                     <span>{favouritesMap[recipe.id] ?? 0}</span>

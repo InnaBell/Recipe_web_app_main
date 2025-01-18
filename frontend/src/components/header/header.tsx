@@ -50,7 +50,7 @@ export const Header = () => {
                 "flex items-center gap-x-1 text-sm/6 hover:text-primary transition-colors",
                 navigationMenuTriggerStyle
               )}
-              href={"#"}
+              href={"/search"}
             >
               Suche
             </Link>
@@ -104,7 +104,7 @@ export const Header = () => {
                       "flex items-center gap-x-1 text-sm/6 hover:text-primary transition-colors",
                       navigationMenuTriggerStyle
                     )}
-                    href={"#"}
+                    href={"/search"}
                   >
                     Suche
                   </Link>

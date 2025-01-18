@@ -1,5 +1,6 @@
+import { Container } from "@/components/container/container";
+import { RecipeListPreview } from "@/components/recipe-list/recipe-list-preview";
 import dataFetch from "@/lib/data-fetch";
-import { RecipeListPreview } from "./recipe-list-preview";
 import { getFavouritesMap } from "@/utils/favourites-map";
 
 function delay(ms: number) {
@@ -15,5 +16,13 @@ export default async function RecipeList() {
   const recipes = await getRecipes();
   const favouritesMap = await getFavouritesMap(recipes);
 
-  return <RecipeListPreview recipes={recipes} favouritesMap={favouritesMap} />;
+  return (
+    <>
+      <Container className="flex justify-between mb-8">
+        <h2 className="font-extrabold underline">Rezepte suchen</h2>
+      </Container>
+
+      <RecipeListPreview recipes={recipes} favouritesMap={favouritesMap} />
+    </>
+  );
 }

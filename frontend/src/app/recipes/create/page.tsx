@@ -6,10 +6,10 @@ import {
 } from "@/components/tiptap/tiptap-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Rocket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { uploadImage } from "@/utils/image-upload";
 
 export default function CreateRecipePage() {
   // state to hold the content of the TipTap editor
@@ -27,51 +27,16 @@ export default function CreateRecipePage() {
 
   // function to handle uploading an image to the server
   const handleImageUpload = async () => {
-    // early return if no coverImage is selected
     if (!coverImage) return;
 
-    // calculate the size of the image file in MB,
-    const fileSizeMb = coverImage.size / (1024 * 1024);
-    // check if the file size exceeds the maximum limit
-    if (fileSizeMb > MAX_IMAGE_SIZE_MB) {
-      toast.error(
-        `The image file size exceeds the maximum limit of ${MAX_IMAGE_SIZE_MB} MB. Please upload a smaller image`,
-        {
-          position: "bottom-center",
-        }
-      );
-
-      // stop further execution
-      throw new Error("Image file size exceeds the maximum limit");
-    }
-
-    // prepare the file to be sent using FormData
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("files[]", coverImage);
-
-    try {
-      //  send the file to the NextJS Server via POST request
-      const response = await fetch("/api/upload-image", {
-        method: "POST",
-        body: formData,
-      });
-
-      // parse the JSON response from the server
-      const data = await response.json();
-
-      // check if the upload failed (based on response status)
-      if (!response.ok) {
-        toast.error(data.message || "Image upload failed", {
-          position: "bottom-center",
-        });
-        throw new Error(data.message || "Image upload failed");
-      }
-
-      return data; // return the uploaded image details
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to upload image", { position: "bottom-center" });
+    const result = await uploadImage({
+      file: coverImage,
+      title,
+      maxFileSizeMb: MAX_IMAGE_SIZE_MB,
+    });
+    if (result) {
+      console.log("Image uploaded successfully:", result);
+      return result;
     }
   };
 
@@ -139,7 +104,7 @@ export default function CreateRecipePage() {
 
   return (
     <>
-      <h1 className="font-bold text-3xl">Let your imagination run wild</h1>
+      <h1 className="font-bold text-3xl">Rezept erstellen</h1>
       {/* Input for the recipe title */}
       <Input
         placeholder="Recipe title"
@@ -158,9 +123,7 @@ export default function CreateRecipePage() {
         onContentChange={setEditorContent}
       />
       {/* Submit button to create the recipe  */}
-      <Button onClick={handleCreateRecipe}>
-        Create Recipe <Rocket />
-      </Button>
+      <Button onClick={handleCreateRecipe}>Erstellen</Button>
     </>
   );
 }
