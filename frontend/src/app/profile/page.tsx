@@ -41,7 +41,7 @@ export default async function ProfilePage() {
     return (
       <div>
         <h1>Profile</h1>
-        <p>Unable to load user profile.</p>
+        <p>Benutzerprofil kann nicht geladen werden.</p>
       </div>
     );
   }

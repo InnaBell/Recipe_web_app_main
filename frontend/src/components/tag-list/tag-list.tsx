@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 
-interface TagsProps {}
+interface TagsProps {
+  onTagClick: (tagId: number) => void;
+}
 
-export const Tags = ({}: TagsProps) => {
+export const Tags = ({ onTagClick }: TagsProps) => {
   const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
@@ -28,7 +30,11 @@ export const Tags = ({}: TagsProps) => {
   return (
     <div className="flex flex-wrap gap-2 mb-16 self-start cursor-pointer">
       {tags.map((tag) => (
-        <Badge key={tag.id} variant={"destructive"}>
+        <Badge
+          key={tag.id}
+          variant={"destructive"}
+          onClick={() => onTagClick(tag.id)}
+        >
           # {tag.name}
         </Badge>
       ))}

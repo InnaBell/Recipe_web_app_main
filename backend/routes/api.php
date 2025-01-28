@@ -24,6 +24,7 @@ Route::get('/tags/all', [TagsController::class, 'show']);
 Route::get('/favourites/count/{recipeId}', [FavouritesController::class, 'countFavouritesForRecipe']);
 Route::get('/uploads',[UploadsController::class,'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{categoryId}/recipes', [CategoryController::class, 'recipesByCategory']);
 
 // user endpoints
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -50,6 +51,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
   Route::post('/categories', [CategoryController::class, 'create']);
   Route::patch('/categories/assign', [CategoryController::class, 'assign']);
+  Route::delete('/categories/{id}', [CategoryController::class, 'delete']);
 
   Route::post('/tags', [TagsController::class, 'create']);
   Route::put('/tags/assign', [TagsController::class, 'assign']);

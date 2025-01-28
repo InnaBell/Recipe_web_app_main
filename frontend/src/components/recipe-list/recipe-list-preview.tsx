@@ -6,6 +6,8 @@ import { Container } from "../container/container";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
+import { Tags } from "../tag-list/tag-list";
+import { CategoryList } from "../category-list/category-list";
 
 interface RecipeListPreviewProps {
   recipes: RecipeData[];
@@ -20,25 +22,6 @@ export const RecipeListPreview = ({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
 
-  const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
-
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/tags/all");
-        if (!response.ok) {
-          throw new Error(`Failed to fetch tags: ${response.status}`);
-        }
-        const data = await response.json();
-        setTags(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTags();
-  }, []);
-
   const handleTagClick = async (tagId: number) => {
     try {
       const response = await fetch(
@@ -47,6 +30,23 @@ export const RecipeListPreview = ({
       if (!response.ok) {
         throw new Error(
           `Failed to fetch recipes for tag ${tagId}: ${response.status}`
+        );
+      }
+      const data = await response.json();
+      setRecipeList(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCategoryClick = async (categoryId: number) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/categories/${categoryId}/recipes`
+      );
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch recipes for category ${categoryId}: ${response.status}`
         );
       }
       const data = await response.json();
@@ -98,17 +98,15 @@ export const RecipeListPreview = ({
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <div className="flex flex-wrap gap-2 mb-16 self-start cursor-pointer">
-          {tags.map((tag) => (
-            <Badge
-              key={tag.id}
-              variant={"destructive"}
-              onClick={() => handleTagClick(tag.id)}
-            >
-              # {tag.name}
-            </Badge>
-          ))}
+        <Tags onTagClick={handleTagClick} />
+
+        <div className="mb-8">
+          <h3 className="mb-2 text-center font-semibold">
+            Kategorien, die deinen Geschmack treffen
+          </h3>
         </div>
+
+        <CategoryList onCategoryClick={handleCategoryClick} />
       </Container>
       <Container className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {recipeList.map((recipe: RecipeData) => (
